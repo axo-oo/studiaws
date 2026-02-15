@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>A-Level Law Revision — Defences & Quizzes</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+            background-color: pink;
+            margin: 0;
+            color: #222;
+        }
+        header {
+            background: #ff6fa0;
+            color: white;
+            padding: 16px 24px;
+        }
+        nav {
+            background: #ffe0ee;
+            padding: 10px 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            cursor: pointer;
+            background: white;
+            color: #d0256e;
+            border: 1px solid #d0256e;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-weight: 600;
+        }
+        main {
+            padding: 20px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .general-section, .defence-section, .quiz-section, .account-section {
+            background: #fff;
+            border: 1px solid #f4a4c6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 16px 0;
+        }
+        .quiz-question {
+            margin-bottom: 12px;
+        }
+        .answers {
+            list-style: none;
+            padding-left: 0;
+        }
+        .answers li {
+            margin: 6px 0;
+        }
+        .btn {
+            background-color: rgb(209, 162, 205); 
+            color: white; /* White text */
+            padding: 12px 16px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+            }
+        .btn:hover{
+            background-color: #5f2f56;
+        }
+        .tabs.search-container {
+        float: right;
+        }
+        .tabs input[type=text] {
+        padding: 6px;
+        margin-top: 8px;
+        font-size: 17px;
+        border: none;
+        }
+        .tabs .search-container button {
+        float: right;
+        padding: 6px 10px;
+        margin-top: 8px;
+        margin-right: 16px;
+        background: #ddd;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+        }
+        .tabs .search-container button:hover {
+        background: #ccc;
+        }
+        footer {
+            margin-top: 40px;
+            padding: 16px;
+            text-align: center;
+            background: #ffe0ee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>A-Level Law — Defences</h1>
+        <p>Quick summaries, law, and quizzes to sharpen your exam skills!</p>
+    </header>
+
+    <nav>
+        <div class="tab" onclick="openTab('homepage')">HOME PAGE</div>
+        <div class="tab" onclick="openTab('defences')">DEFENCES</div>
+        <div class="tab" onclick="openTab('quizes')">QUIZZES</div>   
+        <div class="tab" onclick="openTab('account')">ACCOUNT</div> 
+        <div class="search-container">
+            <form action="/search">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><str>⌕</str></button>
+            </form>
+        </div>
+    </nav>
+
+    <main>
+        <section id="homepage" class="tab-content general-section active">
+            <h2>Welcome to the website!</h2>
+            <ul>This is a website made by a Law and Computer Science Student! It is part of my NEA coursework! There are several things you can do here to improve your grade, which is statistically proven. All of the resources used in this website come from an A-Level Law examiner. You can use this website to revise for <strong>PAPER 1 SECTION B</strong> of your OCR Law work. Feel free to stay as long as you'd like.</ul>
+            <ul>You can make an account to keep track of your scores so far and see how you improve!</ul>
+            <h3>Enjoy!</h3>
+        </section>
+
+        <section id="defences" class="tab-content defence-section">
+            <p>Here you can find advanced notes on different topics!</p>
+            {{tabs}}
+        </section>
+        {{defence_section}}
+        <section id="quizes" class="tab-content quiz-section">
+        {{quizzes-tabs}}
+        </section>
+        {{quiz-sections}}
+
+        <section id="account" class="tab-content account-section">   
+            <form onsubmit="createAccount(event)">
+                <input id="username" placeholder="Enter username">
+                <button type="submit">Create Account</button>
+            </form>
+            <div id="account-message"></div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+         ★ 2025 Law Revision Resource — Designed for A-level students
+    </footer>
+
+    <script>
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function submitQuiz() {
+            const answer = document.querySelector('input[name="q1"]:checked');
+            const result = document.getElementById('quiz-result');
+            if (!answer) {
+                result.textContent = "Please select an answer!";
+                return;
+            }
+            if (answer.value === "M’Naghten") {
+                result.textContent = "Correct! M’Naghten’s Case established the rules for insanity.";
+            } else {
+                result.textContent = "Incorrect. The correct answer is M’Naghten’s Case.";
+            }
+        }
+
+        function createAccount(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const message = document.getElementById('account-message');
+            message.textContent = "Account created for " + username + "! (Demo only, no backend storage)";
+        }
+    </script>
+
+</body>
+</html>
